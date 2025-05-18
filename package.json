@@ -1,0 +1,23 @@
+{
+  "name": "bookstore-playwright",
+  "version": "1.0.0",
+  "description": "API bookstore",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MelvinNigel/bookstore-playwright.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MelvinNigel/bookstore-playwright/issues"
+  },
+  "homepage": "https://github.com/MelvinNigel/bookstore-playwright#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.18"
+  }
+}

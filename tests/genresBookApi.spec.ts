@@ -47,6 +47,7 @@ test('[negative] - Find an unregistered genre', async({request}) => {
     const genre_id_book = randomId
     const response = await request.get(`${baseUrl}/genres/${genre_id_book}`)
     const responseBody = await response.json()
+    console.log(responseBody)
     expect(response.status()).toEqual(404)
     expect(responseBody).toHaveProperty('type')
     expect(responseBody).toHaveProperty('title')
@@ -91,7 +92,7 @@ test('[positive] - Create a new genre', async({request}) => {
 
 
 test('[positive] - Delete specific genre', async({request}) => {
-    const genre_id_book = '13aea895-9a81-4bd8-81d7-3230419b7eeb'
+    const genre_id_book = `58f467f4-94ac-40c1-929e-b8384a68b57f`
     //delete data
     const response = await request.delete(`${baseUrl}/genres/${genre_id_book}`)
     expect(response.status()).toEqual(204)

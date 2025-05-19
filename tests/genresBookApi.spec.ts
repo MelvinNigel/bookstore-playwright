@@ -1,6 +1,7 @@
 import {expect, test} from '@playwright/test'
 import { v4 as uuidv4 } from 'uuid'
 import {faker} from '@faker-js/faker'
+import {ManageCreatedId} from '../helper/manageCreatedId'
 
 const baseUrl = "https://ohmybookapi.azurewebsites.net"
 test('[positive] - Get all genres of existing book', async({request}) => {
@@ -22,6 +23,10 @@ test('[positive] - Get all genres of existing book', async({request}) => {
     expect(responseBody[0].name).toEqual(expect.any(String))
     expect(responseBody[0].description).toEqual(expect.any(String))
     expect(totalGenres).toBeGreaterThan(5)
+
+    const callHelper = new ManageCreatedId()
+    callHelper.saveAllGenreBook(responseBody)
+
 })
 
 test('[positive] - Find a registered genre', async({request}) => {
@@ -88,11 +93,28 @@ test('[positive] - Create a new genre', async({request}) => {
 
     expect(validationResp.status()).toEqual(200)
     expect(validationBody.id).toEqual(created_genre_id)
+
+    //save the created id
+    const callHelper = new ManageCreatedId()
+    callHelper.saveCreatedId(responseBody.id)
+    test.setTimeout(5000)
 })
 
 
 test('[positive] - Delete specific genre', async({request}) => {
-    const genre_id_book = `58f467f4-94ac-40c1-929e-b8384a68b57f`
+    
+    //manual input id
+    // const genre_id_book = '36c83ecc-d747-4e69-8499-9456b49e5bd3'
+
+
+    const callHelper = new ManageCreatedId()
+    // automatic input last created id
+    const genre_id_book = await callHelper.getLastCreatedId()
+
+    //automatic input last saved id (need fixing)
+    // const genre_id_book = await callHelper.getLastSavedGenreId()
+    console.log("deleted id = " + genre_id_book)
+
     //delete data
     const response = await request.delete(`${baseUrl}/genres/${genre_id_book}`)
     expect(response.status()).toEqual(204)

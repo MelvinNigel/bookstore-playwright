@@ -27,7 +27,14 @@ export class ManageCreatedId {
 
     async getLastSavedGenreId(){
         const lastSavedGenreId = allSavedGenre.all_data.pop()?.id
-
+        const allSavedGenreFile = './json/allSavedGenreBook.json'
+        fs.writeFileSync(allSavedGenreFile, JSON.stringify(allSavedGenre))
         return lastSavedGenreId
+    }
+    
+    async pushNewCreatedData(response: any){
+        const allSavedGenreFile = './json/allSavedGenreBook.json'
+        allSavedGenre.all_data.push(response)
+        fs.writeFileSync(allSavedGenreFile, JSON.stringify(allSavedGenre))
     }
 }

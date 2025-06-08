@@ -96,7 +96,8 @@ test('[positive] - Create a new genre', async({request}) => {
 
     //save the created id
     const callHelper = new ManageCreatedId()
-    callHelper.saveCreatedId(responseBody.id)
+    // callHelper.saveCreatedId(responseBody.id)
+    callHelper.pushNewCreatedData(responseBody)
     test.setTimeout(5000)
 })
 
@@ -106,13 +107,10 @@ test('[positive] - Delete specific genre', async({request}) => {
     //manual input id
     // const genre_id_book = '36c83ecc-d747-4e69-8499-9456b49e5bd3'
 
-
     const callHelper = new ManageCreatedId()
-    // automatic input last created id
-    const genre_id_book = await callHelper.getLastCreatedId()
 
-    //automatic input last saved id (need fixing)
-    // const genre_id_book = await callHelper.getLastSavedGenreId()
+    //automatic input last id
+    const genre_id_book = await callHelper.getLastSavedGenreId()
     console.log("deleted id = " + genre_id_book)
 
     //delete data
